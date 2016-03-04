@@ -1,6 +1,6 @@
 
 
-import canvasGetBounds from './canvasGetBounds'
+import canvasGetBounds from './canvas-get-bounds'
 
 export default function measureString(text, canvas, fontSize, font) {
   let ctx = canvas.getContext('2d')

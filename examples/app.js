@@ -1,8 +1,16 @@
-/*global document:false*/
-//import React from 'react'
-//import { render } from 'react-dom'
-import '../src/'
 
+import SongDisplay from '../src/'
+import FullScreenCanvas from '../src/full-screen-canvas'
 
+const songCanvas = new FullScreenCanvas()
+const songDisplay = new SongDisplay()
+const render = () => {
+  songDisplay.render({
+    ctx: songCanvas.canvas.getContext('2d'),
+    width: songCanvas.canvas.width,
+    height: songCanvas.canvas.height
+  })
+}
 
-//render(<App/>, document.getElementById('content'))
+songCanvas.addEventListener('resize', render)
+render()

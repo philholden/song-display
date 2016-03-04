@@ -1,4 +1,4 @@
-import splitLineEvenly from './splitLineEvenly'
+import splitLineEvenly from './split-line-evenly'
 
 export default function splitWidestLine(verses, canvas) {
   function widest(widest, item) {

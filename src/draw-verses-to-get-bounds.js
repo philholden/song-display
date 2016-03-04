@@ -1,7 +1,7 @@
 
 
-import roughBoundsToTrueBounds from './roughBoundsToTrueBounds'
-import drawVerse from './drawVerse'
+import roughBoundsToTrueBounds from './rough-bounds-to-true-bounds'
+import drawVerse from './draw-verse'
 
 export default function drawVersesToGetBounds({
   song,

@@ -1,8 +1,8 @@
 
 
-import measureString from './measureString'
-import splitWidestLine from './splitWidestLine'
-import augmentSong from './augmentSong'
+import measureString from './measure-string'
+import splitWidestLine from './split-widest-line'
+import augmentSong from './augment-song'
 
 export default function SongContext({
     lineHeight,

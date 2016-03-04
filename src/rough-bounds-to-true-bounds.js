@@ -1,6 +1,6 @@
 
-import canvasGetBounds from './canvasGetBounds'
-import Transform from './Transform'
+import canvasGetBounds from './canvas-get-bounds'
+import Transform from './transform'
 
 //Takes a song that has been meta info about verse metrics and renders
 //each verse to a canvas. w and h is the desired width and height

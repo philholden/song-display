@@ -1,4 +1,4 @@
-import drawVerse from './drawVerse'
+import drawVerse from './draw-verse'
 
 export default function drawSong({ song, ctx, x, y, isStroke }) {
   let mLineHeight = song.fontMetrics.h * song.lineHeight
