@@ -1,6 +1,6 @@
 
 
-let measureString = require('./measureString')
+import measureString from './measureString'
 let splitWidestLine = require('./splitWidestLine')
 let augmentSong = require('./augmentSong')
 

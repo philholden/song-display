@@ -1,54 +1,52 @@
-function canvasGetBounds(canvas) {
-  var w =  canvas.width;
-  var h = canvas.height;
-  var ctx = canvas.getContext('2d');
-  var data = ctx.getImageData(0, 0, w, h).data;
-  var i = 0;
-  var out = {};
-  var offset = 0;
+export default function canvasGetBounds(canvas) {
+  let w =  canvas.width
+  let h = canvas.height
+  let ctx = canvas.getContext('2d')
+  let data = ctx.getImageData(0, 0, w, h).data
+  let i = 0
+  let out = {}
+  let offset = 0
 
   //find top
-  i = 0;
+  i = 0
   while(data[i<<2] === 0) {
-    i++;
+    i++
   }
 
   if(data[i<<2] === undefined) {
-    return null;
+    return null
   }
-  out.y = Math.floor(i / w);
+  out.y = Math.floor(i / w)
 
   //find bottom
-  i = data.length>>2;
+  i = data.length>>2
   while(!data[i<<2]) {
-    i--;
+    i--
   }
-  out.h = Math.ceil(i / w) - out.y;
+  out.h = Math.ceil(i / w) - out.y
 
   //find left
-  i = 0;
+  i = 0
   do {
-    i = offset;
+    i = offset
     while(data[i<<2] === 0) {
-      i += w;
+      i += w
     }
-    offset++;
+    offset++
   } while (data[i<<2] === undefined)
-  out.x = offset - 1;
+  out.x = offset - 1
 
   //find right
-  offset = w -1;
-  i = 0;
+  offset = w -1
+  i = 0
   do {
-    i = offset;
+    i = offset
     while(data[i<<2] === 0) {
-      i += w;
+      i += w
     }
-    offset--;
+    offset--
   } while (data[i<<2] === undefined)
 
-  out.w = offset + 2 - out.x;
-  return out;
+  out.w = offset + 2 - out.x
+  return out
 }
-
-module.exports = canvasGetBounds;

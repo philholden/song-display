@@ -1,6 +1,6 @@
 'use strict';
 
-var canvasGetBounds = require('./canvasGetBounds');
+import canvasGetBounds from './canvasGetBounds'
 var Transform = require('./Transform');
 
 //Takes a song that has been meta info about verse metrics and renders

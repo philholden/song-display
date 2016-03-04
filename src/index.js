@@ -3,7 +3,7 @@ import FullScreenCanvas from './FullScreenCanvas'
 import SongContext from './SongContext'
 import Song from './Song'
 let drawSongToGetBounds = require('./drawSongToGetBounds')
-let drawVersesToGetBounds = require('./drawVersesToGetBounds')
+import drawVersesToGetBounds from './drawVersesToGetBounds'
 let drawVerse = require('./drawVerse')
 let drawSong = require('./drawSong')
 let renderAffineText = require('./renderAffineText')
