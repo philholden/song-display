@@ -1,7 +1,7 @@
 
 import FullScreenCanvas from './FullScreenCanvas'
 import SongContext from './SongContext'
-let Song = require('./Song')
+import Song from './Song'
 let drawSongToGetBounds = require('./drawSongToGetBounds')
 let drawVersesToGetBounds = require('./drawVersesToGetBounds')
 let drawVerse = require('./drawVerse')
@@ -29,8 +29,6 @@ function build(song) {
   let ctx
   let id = 0
   let renderVerseCallback
-
-
 
   setSong(song)
   showBlank()
