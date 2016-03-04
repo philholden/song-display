@@ -13,7 +13,7 @@ export default function drawVersesToGetBounds(song, canvasWidth, canvasHeight, i
 
   function drawCallback(ctx) {
     song.verses.forEach((verse, i) => {
-      drawVerse(song, i, ctx, 0, 0, isStroke)
+      drawVerse({ song, verse: i, ctx, x:0, y:0, isStroke })
     })
   }
 

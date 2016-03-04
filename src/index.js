@@ -98,8 +98,7 @@ function build(song) {
           song: bestfit,
           ctx,
           x: offx,
-          y: offy,
-          isStroke: false
+          y: offy
         })
       }
     }
@@ -111,7 +110,13 @@ function build(song) {
     return {
       metrics,
       renderCallback(ctx, offx, offy) {
-        drawVerse(bestfit, verseShown, ctx, offx, offy, false)
+        drawVerse({
+          song: bestfit,
+          ctx,
+          x: offx,
+          y: offy,
+          verse: verseShown
+        })
       }
     }
   }
