@@ -1,5 +1,6 @@
 {
   "name": "song-display",
+  "version":"0.0.1-semantic",
   "description": "Layout song and verse lyrics with good typography on a canvas",
   "main": "lib/index.js",
   "scripts": {
