@@ -85,11 +85,22 @@ function build(song) {
 
   function getSongRenderCallback(ctx, layouts) {
     let bestfit = sc.findBestFit(layouts,songCanvas.w,songCanvas.h)
-    let metrics = drawSongToGetBounds(bestfit, songCanvas.w, songCanvas.h, false)
+    let metrics = drawSongToGetBounds({
+      song: bestfit,
+      canvasWidth: songCanvas.w,
+      canvasHeight: songCanvas.h,
+      isStroke: false
+    })
     return {
       metrics,
       renderCallback(ctx, offx, offy) {
-        drawSong(bestfit, ctx, offx, offy, false)
+        drawSong({
+          song: bestfit,
+          ctx,
+          x: offx,
+          y: offy,
+          isStroke: false
+        })
       }
     }
   }
