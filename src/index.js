@@ -1,7 +1,6 @@
-'use strict'
 
 import FullScreenCanvas from './FullScreenCanvas'
-let SongContext = require('./SongContext')
+import SongContext from './SongContext'
 let Song = require('./Song')
 let drawSongToGetBounds = require('./drawSongToGetBounds')
 let drawVersesToGetBounds = require('./drawVersesToGetBounds')
