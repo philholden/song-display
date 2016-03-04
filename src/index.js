@@ -106,7 +106,11 @@ function build(song) {
 
   function getVerseRenderCallback(ctx, layouts) {
     let bestfit = sc.findBestFit(layouts,songCanvas.w,songCanvas.h)
-    let metrics = drawVersesToGetBounds(bestfit, songCanvas.w, songCanvas.h, false)
+    let metrics = drawVersesToGetBounds({
+      song:bestfit,
+      canvasWidth: songCanvas.w,
+      canvasHeight: songCanvas.h
+    })
     return {
       metrics,
       renderCallback(ctx, offx, offy) {

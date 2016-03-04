@@ -3,7 +3,12 @@
 import roughBoundsToTrueBounds from './roughBoundsToTrueBounds'
 import drawVerse from './drawVerse'
 
-export default function drawVersesToGetBounds(song, canvasWidth, canvasHeight, isStroke) {
+export default function drawVersesToGetBounds({
+  song,
+  canvasWidth,
+  canvasHeight,
+  isStroke=false
+}) {
   let bounds1 = {
     x: 0,
     y: 0,
