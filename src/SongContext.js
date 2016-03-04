@@ -4,12 +4,15 @@ import measureString from './measureString'
 import splitWidestLine from './splitWidestLine'
 import augmentSong from './augmentSong'
 
-export default function SongContext(lineHeight, fontHeight, fontName, verseGap) {
+export default function SongContext({
+    lineHeight,
+    fontHeight,
+    fontName = fontName || 'Helvetica, Arial, Sans-Serif',
+    verseGap = lineHeight
+  }) {
   let canvas = document.createElement('canvas')
   let ctx = canvas.getContext('2d')
   let fontMetrics = measureString('Hygpqil', canvas, fontHeight)
-  verseGap = verseGap || lineHeight
-  fontName = fontName || 'Courier, Serif, Helvetica, Arial, Sans-Serif'
   ctx.font = fontHeight + 'px ' + fontName
 
   function clone(obj) {

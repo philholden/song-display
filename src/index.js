@@ -19,7 +19,12 @@ if (module.hot) {
 
 function build(song) {
   let songCanvas = new FullScreenCanvas()
-  let sc = SongContext(1.4, 20, 'sans-serif', .75)
+  let sc = SongContext({
+    lineHeight: 1.4,
+    fontHeight: 20,
+    fontName: 'sans-serif',
+    verseGap: .75
+  })
   let songRenderer
   let verseRenderer
   let verseLayouts
