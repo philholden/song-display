@@ -1,6 +1,6 @@
 {
-  "name": "subdivide",
-  "description": "Split pane layout system for React. Each pane can be subdivided and any widget assigned to any pane allowing users define layout.",
+  "name": "song-display",
+  "description": "Layout song and verse lyrics with good typography on a canvas",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/philholden/subdivide"
+    "url": "https://github.com/philholden/song-display"
   },
   "keywords": [
     "immutable",
@@ -41,9 +41,9 @@
   "author": "Phil Holden (http://github.com/philholden)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/philholden/subdivide/issues"
+    "url": "https://github.com/philholden/song-display/issues"
   },
-  "homepage": "https://github.com/philholden/subdivide",
+  "homepage": "https://github.com/philholden/song-display",
   "devDependencies": {
     "ava": "^0.9.1",
     "babel-cli": "^6.4.0",
@@ -92,11 +92,8 @@
     "webpack-hot-middleware": "^2.6.0",
     "webpack-stats-plugin": "^0.1.1",
     "babel-preset-stage-1": "^6.3.13",
-    "color-array": "0.0.5",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "redux": "^3.0.0",
-    "react-redux": "^3.0.1",
     "mocha": "^2.3.3"
   },
   "config": {
@@ -107,9 +104,7 @@
       "path": "node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {
-    "immutable": "^3.7.4"
-  },
+  "dependencies": {},
   "release": {
     "debug": false
   }
