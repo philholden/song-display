@@ -1,7 +1,6 @@
-'use strict';
 
 import canvasGetBounds from './canvasGetBounds'
-var Transform = require('./Transform');
+import Transform from './Transform'
 
 //Takes a song that has been meta info about verse metrics and renders
 //each verse to a canvas. w and h is the desired width and height

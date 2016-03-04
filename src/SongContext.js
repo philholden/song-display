@@ -1,8 +1,8 @@
 
 
 import measureString from './measureString'
-let splitWidestLine = require('./splitWidestLine')
-let augmentSong = require('./augmentSong')
+import splitWidestLine from './splitWidestLine'
+import augmentSong from './augmentSong'
 
 export default function SongContext(lineHeight, fontHeight, fontName, verseGap) {
   let canvas = document.createElement('canvas')
@@ -13,7 +13,7 @@ export default function SongContext(lineHeight, fontHeight, fontName, verseGap) 
   ctx.font = fontHeight + 'px ' + fontName
 
   function clone(obj) {
-   return JSON.parse(JSON.stringify(obj))
+    return JSON.parse(JSON.stringify(obj))
   }
 
   function setSong(song) {

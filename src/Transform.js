@@ -1,133 +1,113 @@
-// Last updated November 2011
-// By Simon Sarris
-// www.simonsarris.com
-// sarris@acm.org
-//
-// Free to use and distribute at will
-// So long as you are nice to people, etc
 
-// Simple class for keeping track of the current transformation matrix
 
-// For instance:
-//    var t = new Transform();
-//    t.rotate(5);
-//    var m = t.m;
-//    ctx.setTransform(m[0], m[1], m[2], m[3], m[4], m[5]);
+export default class Transform {
 
-// Is equivalent to:
-//    ctx.rotate(5);
+  constructor(matrix) {
+    if(!matrix) {
+      this.reset()
+    } else {
+      this.m = matrix
+    }
+  }
 
-// But now you can retrieve it :)
+  reset() {
+    this.m = [ 1,0,0,1,0,0 ]
+  }
 
-// Remember that this does not account for any CSS transforms applied to the canvas
+  multiply(matrix) {
+    let m11 = this.m[0] * matrix.m[0] + this.m[2] * matrix.m[1]
+    let m12 = this.m[1] * matrix.m[0] + this.m[3] * matrix.m[1]
 
-'use strict';
+    let m21 = this.m[0] * matrix.m[2] + this.m[2] * matrix.m[3]
+    let m22 = this.m[1] * matrix.m[2] + this.m[3] * matrix.m[3]
 
-function Transform(matrix) {
-  if(!matrix){
-    this.reset();
-  } else {
-    this.m = matrix;
+    let dx = this.m[0] * matrix.m[4] + this.m[2] * matrix.m[5] + this.m[4]
+    let dy = this.m[1] * matrix.m[4] + this.m[3] * matrix.m[5] + this.m[5]
+
+    this.m[0] = m11
+    this.m[1] = m12
+    this.m[2] = m21
+    this.m[3] = m22
+    this.m[4] = dx
+    this.m[5] = dy
+  }
+
+  getInverseTransform() {
+    let d = 1 / (this.m[0] * this.m[3] - this.m[1] * this.m[2])
+    let m0 = this.m[3] * d
+    let m1 = -this.m[1] * d
+    let m2 = -this.m[2] * d
+    let m3 = this.m[0] * d
+    let m4 = d * (this.m[2] * this.m[5] - this.m[3] * this.m[4])
+    let m5 = d * (this.m[1] * this.m[4] - this.m[0] * this.m[5])
+    return new Transform([ m0,m1,m2,m3,m4,m5 ])
+  }
+
+  rotate(rad) {
+    let c = Math.cos(rad)
+    let s = Math.sin(rad)
+    let m11 = this.m[0] * c + this.m[2] * s
+    let m12 = this.m[1] * c + this.m[3] * s
+    let m21 = this.m[0] * -s + this.m[2] * c
+    let m22 = this.m[1] * -s + this.m[3] * c
+    this.m[0] = m11
+    this.m[1] = m12
+    this.m[2] = m21
+    this.m[3] = m22
+  }
+
+  skewY(rad) {
+    let r = Math.tan(rad)
+    let m11 = this.m[0] + this.m[2] * r
+    let m12 = this.m[1] + this.m[3] * r
+    this.m[0] = m11
+    this.m[1] = m12
+  }
+
+  skewX(rad) {
+    let r = Math.tan(rad)
+    let m21 = this.m[0] * r + this.m[2]
+    let m22 = this.m[1] * r + this.m[3]
+    this.m[2] = m21
+    this.m[3] = m22
+  }
+
+  translate(x, y) {
+    this.m[4] += this.m[0] * x + this.m[2] * y
+    this.m[5] += this.m[1] * x + this.m[3] * y
+  }
+
+  scale(sx, sy) {
+    this.m[0] *= sx
+    this.m[1] *= sx
+    this.m[2] *= sy
+    this.m[3] *= sy
+  }
+
+  transformPoint(px, py) {
+    let x = px
+    let y = py
+    px = x * this.m[0] + y * this.m[2] + this.m[4]
+    py = x * this.m[1] + y * this.m[3] + this.m[5]
+    return { x:px, y:py }
   }
 }
 
-Transform.prototype.reset = function() {
-  this.m = [1,0,0,1,0,0];
-};
-
-Transform.prototype.multiply = function(matrix) {
-  var m11 = this.m[0] * matrix.m[0] + this.m[2] * matrix.m[1];
-  var m12 = this.m[1] * matrix.m[0] + this.m[3] * matrix.m[1];
-
-  var m21 = this.m[0] * matrix.m[2] + this.m[2] * matrix.m[3];
-  var m22 = this.m[1] * matrix.m[2] + this.m[3] * matrix.m[3];
-
-  var dx = this.m[0] * matrix.m[4] + this.m[2] * matrix.m[5] + this.m[4];
-  var dy = this.m[1] * matrix.m[4] + this.m[3] * matrix.m[5] + this.m[5];
-
-  this.m[0] = m11;
-  this.m[1] = m12;
-  this.m[2] = m21;
-  this.m[3] = m22;
-  this.m[4] = dx;
-  this.m[5] = dy;
-};
-
-Transform.prototype.getInverseTransform = function() {
-  var d = 1 / (this.m[0] * this.m[3] - this.m[1] * this.m[2]);
-  var m0 = this.m[3] * d;
-  var m1 = -this.m[1] * d;
-  var m2 = -this.m[2] * d;
-  var m3 = this.m[0] * d;
-  var m4 = d * (this.m[2] * this.m[5] - this.m[3] * this.m[4]);
-  var m5 = d * (this.m[1] * this.m[4] - this.m[0] * this.m[5]);
-  return new Transform([m0,m1,m2,m3,m4,m5]);
-};
-
-Transform.prototype.rotate = function(rad) {
-  var c = Math.cos(rad);
-  var s = Math.sin(rad);
-  var m11 = this.m[0] * c + this.m[2] * s;
-  var m12 = this.m[1] * c + this.m[3] * s;
-  var m21 = this.m[0] * -s + this.m[2] * c;
-  var m22 = this.m[1] * -s + this.m[3] * c;
-  this.m[0] = m11;
-  this.m[1] = m12;
-  this.m[2] = m21;
-  this.m[3] = m22;
-};
-
-Transform.prototype.skewY = function(rad) {
-  var r = Math.tan(rad);
-  var m11 = this.m[0] + this.m[2] * r;
-  var m12 = this.m[1] + this.m[3] * r;
-  this.m[0] = m11;
-  this.m[1] = m12;
-};
-
-Transform.prototype.skewX = function(rad) {
-  var r = Math.tan(rad);
-  var m21 = this.m[0] * r + this.m[2];
-  var m22 = this.m[1] * r + this.m[3];
-  this.m[2] = m21;
-  this.m[3] = m22;
-};
-
-Transform.prototype.translate = function(x, y) {
-  this.m[4] += this.m[0] * x + this.m[2] * y;
-  this.m[5] += this.m[1] * x + this.m[3] * y;
-};
-
-Transform.prototype.scale = function(sx, sy) {
-  this.m[0] *= sx;
-  this.m[1] *= sx;
-  this.m[2] *= sy;
-  this.m[3] *= sy;
-};
 
 // Transform.prototype.rotateAbout = function(rad, x, y) {
-//   this.translate(x, y);
-//   this.rotate(rad);
-//   this.translate(-x, -y);
-// };
+//   this.translate(x, y)
+//   this.rotate(rad)
+//   this.translate(-x, -y)
+// }
 
-Transform.prototype.transformPoint = function(px, py) {
-  var x = px;
-  var y = py;
-  px = x * this.m[0] + y * this.m[2] + this.m[4];
-  py = x * this.m[1] + y * this.m[3] + this.m[5];
-  return {x:px, y:py};
-};
 
 // Transform.prototype.transformRect = function(rx, ry, rw, rh) {
-//   var topLeft = this.transformPoint(rx, ry);
-//   var bottomRight = this.transformPoint(rx + rw, ry + rh);
+//   let topLeft = this.transformPoint(rx, ry)
+//   let bottomRight = this.transformPoint(rx + rw, ry + rh)
 //   return {
 //     x:topLeft[0],
 //     y:topLeft[1],
 //     w:bottomRight[0],
 //     h:bottomRight[1]
-//   };
-// };
-
-module.exports = Transform;
+//   }
+// }
